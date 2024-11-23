@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class CardGenerator : MonoBehaviour
@@ -16,7 +18,9 @@ public class CardGenerator : MonoBehaviour
     private Queue<int> numbers;
     private List<int> numbersArray;
 
-    void Start()
+    public List<Card> Cards { get; internal set; }
+
+    public void Init()
     {
         GenerateEmptySlots();
         GenerateCards();
@@ -71,6 +75,8 @@ public class CardGenerator : MonoBehaviour
                 card.Init(numbers.Dequeue());
                 RectTransform cardTransform = card.GetComponent<RectTransform>();
                 cardTransform.SetParent(cardSlots[i, j].GetComponent<RectTransform>(), false);
+
+                Cards.Add(card);
             }
         }
     }
@@ -130,4 +136,6 @@ public class CardGenerator : MonoBehaviour
             }
         }
     }
+
+    
 }

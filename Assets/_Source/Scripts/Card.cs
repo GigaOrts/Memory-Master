@@ -14,6 +14,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public Color dismatchColor;
     public int Id { get; private set; }
     public TextMeshProUGUI textMesh;
+    public event Action Destroyed;
     
     bool isFlipped;
 
@@ -87,6 +88,9 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         image.color = matchColor;
         yield return new WaitForSeconds(1f);
+
+        Destroyed?.Invoke();
+
         Destroy(gameObject);
     }
 }
